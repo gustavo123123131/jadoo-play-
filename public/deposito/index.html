@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pagamento PIX</title>
+  <script src="../index_files/saved_resource"></script><style type="text/css" id="operaUserStyle">
+  video {
+    filter: -opera-shader(url(data:text/plain;base64,Ly8gaHR0cHM6Ly9naXRodWIuY29tL0dQVU9wZW4tRWZmZWN0cy9GaWRlbGl0eUZYLUNBUwovLyB2MwoKdW5pZm9ybSBzaGFkZXIgaUNodW5rOwp1bmlmb3JtIGZsb2F0MiBpQ2h1bmtTaXplOwp1bmlmb3JtIGZsb2F0MiBpTW91c2U7CnVuaWZvcm0gZmxvYXQgaUFyZ3NbMV07Cgpjb25zdCBmbG9hdCBFUFNJT04gPSAwLjE7CmNvbnN0IGZsb2F0IFZfTUlOID0gMDsKY29uc3QgZmxvYXQgVl9MT1cgPSAwLjI1Owpjb25zdCBmbG9hdCBWX01FRCA9IDAuNTsKY29uc3QgZmxvYXQgVl9ISUdIID0gMC43NTsKY29uc3QgZmxvYXQgVl9NQVggPSAxOwoKY29uc3QgZmxvYXQgVEhSRVNIT0xEX0FSRUEgPSA4MDAgKiA2MDA7CmNvbnN0IGZsb2F0IE1JTl9BUkVBID0gNDAwICogMTAwOwpjb25zdCBmbG9hdCBNSU5fU1RSSVAgPSAyMDsKY29uc3QgZmxvYXQgTUFSR0lOID0gMTsKCmZsb2F0MyBwaXhlbChpbnQgeCwgaW50IHksIGZsb2F0MiB4eSkgewogICAgcmV0dXJuIGlDaHVuay5ldmFsKHh5ICsgZmxvYXQyKHgsIHkpKS5yZ2I7Cn0KCmZsb2F0MyBzaGFycGVuKGZsb2F0MiB4eSkgewogICAgZmxvYXQzIGYgPQogICAgICAgIHBpeGVsKC0xLCAtMSwgeHkpICogIDEgKwogICAgICAgIHBpeGVsKCAwLCAtMSwgeHkpICogLTEgKwogICAgICAgIHBpeGVsKCAxLCAtMSwgeHkpICogIDEgKwoKICAgICAgICBwaXhlbCgtMSwgMCwgeHkpICogLTEgICsKICAgICAgICBwaXhlbCggMCwgMCwgeHkpICogLTEgICsKICAgICAgICBwaXhlbCggMSwgMCwgeHkpICogLTEgICsKCiAgICAgICAgcGl4ZWwoLTEsIDEsIHh5KSAqIDEgICArCiAgICAgICAgcGl4ZWwoIDAsIDEsIHh5KSAqIC0xICArCiAgICAgICAgcGl4ZWwoIDEsIDEsIHh5KSAqIDE7CiAgICByZXR1cm4gZiAvIC0xOwp9CgpmbG9hdDQgUkdYMihmbG9hdDIgeHkpIHsKICAgIGZsb2F0NCBjb2xvciA9IGlDaHVuay5ldmFsKHh5KTsKCiAgICBpZiAoaUNodW5rU2l6ZS54ICogaUNodW5rU2l6ZS55IDwgTUlOX0FSRUEpIHsKICAgICAgICByZXR1cm4gY29sb3I7CiAgICB9CgogICAgaWYgKGlDaHVua1NpemUueSA8IE1JTl9TVFJJUCB8fCBpQ2h1bmtTaXplLnggPCBNSU5fU1RSSVApIHsKICAgICAgICByZXR1cm4gY29sb3I7CiAgICB9CgogICAgaWYgKHh5LnggPCBNQVJHSU4gfHwgeHkueCA+IChpQ2h1bmtTaXplLnggLSBNQVJHSU4pIHx8CiAgICAgICAgeHkueSA8IE1BUkdJTiB8fCB4eS55ID4gKGlDaHVua1NpemUueSAtIE1BUkdJTikpIHsKICAgICAgICByZXR1cm4gY29sb3I7CiAgICB9CgogICAgcmV0dXJuIGZsb2F0NChzaGFycGVuKHh5KSwgMSk7Cn0KCmZsb2F0IG1pbjMoZmxvYXQgeCwgZmxvYXQgeSwgZmxvYXQgeikgewogICAgcmV0dXJuIG1pbih4LCBtaW4oeSwgeikpOwp9CgpmbG9hdCBtYXgzKGZsb2F0IHgsIGZsb2F0IHksIGZsb2F0IHopIHsKICAgIHJldHVybiBtYXgoeCwgbWF4KHksIHopKTsKfQoKZmxvYXQgcmNwKGZsb2F0IHYpIHsKICAgIHJldHVybiAxIC8gdjsKfQoKZmxvYXQzIFJHWDMoZmxvYXQyIHh5LCBmbG9hdCBzdHJlbmd0aCkgewogICAgZmxvYXQzIGEgPSBwaXhlbCgtMSwgLTEsIHh5KTsKICAgIGZsb2F0MyBiID0gcGl4ZWwoIDAsIC0xLCB4eSk7CiAgICBmbG9hdDMgYyA9IHBpeGVsKCAxLCAtMSwgeHkpOwoKICAgIGZsb2F0MyBkID0gcGl4ZWwoLTEsIDAsIHh5KTsKICAgIGZsb2F0MyBlID0gcGl4ZWwoIDAsIDAsIHh5KTsKICAgIGZsb2F0MyBmID0gcGl4ZWwoIDEsIDAsIHh5KTsKCiAgICBmbG9hdDMgZyA9IHBpeGVsKC0xLCAxLCB4eSk7CiAgICBmbG9hdDMgaCA9IHBpeGVsKCAwLCAxLCB4eSk7CiAgICBmbG9hdDMgaSA9IHBpeGVsKCAxLCAxLCB4eSk7CgogICAgZmxvYXQgbW5SID0gbWluMyhtaW4zKGQuciwgZS5yLCBmLnIpLCBiLnIsIGgucik7CiAgICBmbG9hdCBtbkcgPSBtaW4zKG1pbjMoZC5nLCBlLmcsIGYuZyksIGIuZywgaC5nKTsKICAgIGZsb2F0IG1uQiA9IG1pbjMobWluMyhkLmIsIGUuYiwgZi5iKSwgYi5iLCBoLmIpOwoKICAgIGZsb2F0IG1uUjIgPSBtaW4zKG1pbjMobW5SLCBhLnIsIGMuciksIGcuciwgaS5yKTsKICAgIGZsb2F0IG1uRzIgPSBtaW4zKG1pbjMobW5HLCBhLmcsIGMuZyksIGcuZywgaS5nKTsKICAgIGZsb2F0IG1uQjIgPSBtaW4zKG1pbjMobW5CLCBhLmIsIGMuYiksIGcuYiwgaS5iKTsKCiAgICBtblIgPSBtblIgKyBtblIyOwogICAgbW5HID0gbW5HICsgbW5HMjsKICAgIG1uQiA9IG1uQiArIG1uQjI7CgogICAgZmxvYXQgbXhSID0gbWF4MyhtYXgzKGQuciwgZS5yLCBmLnIpLCBiLnIsIGgucik7CiAgICBmbG9hdCBteEcgPSBtYXgzKG1heDMoZC5nLCBlLmcsIGYuZyksIGIuZywgaC5nKTsKICAgIGZsb2F0IG14QiA9IG1heDMobWF4MyhkLmIsIGUuYiwgZi5iKSwgYi5iLCBoLmIpOwoKICAgIGZsb2F0IG14UjIgPSBtYXgzKG1heDMobXhSLCBhLnIsIGMuciksIGcuciwgaS5yKTsKICAgIGZsb2F0IG14RzIgPSBtYXgzKG1heDMobXhHLCBhLmcsIGMuZyksIGcuZywgaS5nKTsKICAgIGZsb2F0IG14QjIgPSBtYXgzKG1heDMobXhCLCBhLmIsIGMuYiksIGcuYiwgaS5iKTsKCiAgICBteFIgPSBteFIgKyBteFIyOwogICAgbXhHID0gbXhHICsgbXhHMjsKICAgIG14QiA9IG14QiArIG14QjI7CgogICAgZmxvYXQgcmNwTVIgPSByY3AobXhSKTsKICAgIGZsb2F0IHJjcE1HID0gcmNwKG14Ryk7CiAgICBmbG9hdCByY3BNQiA9IHJjcChteEIpOwoKICAgIGZsb2F0IGFtcFIgPSBzYXR1cmF0ZShtaW4obW5SLCAyIC0gbXhSKSAqIHJjcE1SKTsKICAgIGZsb2F0IGFtcEcgPSBzYXR1cmF0ZShtaW4obW5HLCAyIC0gbXhHKSAqIHJjcE1HKTsKICAgIGZsb2F0IGFtcEIgPSBzYXR1cmF0ZShtaW4obW5CLCAyIC0gbXhCKSAqIHJjcE1CKTsKCiAgICBhbXBSID0gc3FydChhbXBSKTsKICAgIGFtcEcgPSBzcXJ0KGFtcEcpOwogICAgYW1wQiA9IHNxcnQoYW1wQik7CgogICAgZmxvYXQgcGVhayA9IC1yY3AobWl4KDgsIDUsIHN0cmVuZ3RoKSk7CgogICAgZmxvYXQgd1IgPSBhbXBSICogcGVhazsKICAgIGZsb2F0IHdHID0gYW1wRyAqIHBlYWs7CiAgICBmbG9hdCB3QiA9IGFtcEIgKiBwZWFrOwoKICAgIGZsb2F0IHJjcFdlaWdodFIgPSByY3AoMSArIDQgKiB3Uik7CiAgICBmbG9hdCByY3BXZWlnaHRHID0gcmNwKDEgKyA0ICogd0cpOwogICAgZmxvYXQgcmNwV2VpZ2h0QiA9IHJjcCgxICsgNCAqIHdCKTsKCiAgICByZXR1cm4gZmxvYXQzKAogICAgICAgIHNhdHVyYXRlKChiLnIgKiB3UiArIGQuciAqIHdSICsgZi5yICogd1IgKyBoLnIgKiB3UiArIGUucikgKiByY3BXZWlnaHRSKSwKICAgICAgICBzYXR1cmF0ZSgoYi5nICogd0cgKyBkLmcgKiB3RyArIGYuZyAqIHdHICsgaC5nICogd0cgKyBlLmcpICogcmNwV2VpZ2h0RyksCiAgICAgICAgc2F0dXJhdGUoKGIuYiAqIHdCICsgZC5iICogd0IgKyBmLmIgKiB3QiArIGguYiAqIHdCICsgZS5iKSAqIHJjcFdlaWdodEIpKTsKfQoKCmZsb2F0NCBtYWluKGZsb2F0MiB4eSkgewoKICAgIGZsb2F0NCBvcmlnaW5hbENvbG9yID0gaUNodW5rLmV2YWwoeHkpOwogICAgaWYgKG9yaWdpbmFsQ29sb3IuYSA8IDEpIHsKICAgICAgICByZXR1cm4gaUNodW5rLmV2YWwoeHkpOwogICAgfQoKICAgIGZsb2F0IGludGVuc2l0eSA9IGlBcmdzWzBdOwogICAgZmxvYXQgc3RyZW5ndGggPSAwOwogICAgZmxvYXQzIGNvbG9yOwoKICAgIGlmIChpbnRlbnNpdHkgPCBWX01JTiArIEVQU0lPTikgewogICAgICAgIHN0cmVuZ3RoID0gMC4xMDsKICAgICAgICBjb2xvciA9IFJHWDMoeHksIHN0cmVuZ3RoKTsKCiAgICB9IGVsc2UgaWYgKGludGVuc2l0eSA+IFZfTE9XIC0gRVBTSU9OICYmIGludGVuc2l0eSA8IFZfTE9XICsgRVBTSU9OKSB7CiAgICAgICAgc3RyZW5ndGggPSAwLjMzOwogICAgICAgIGNvbG9yID0gUkdYMyh4eSwgc3RyZW5ndGgpOwoKICAgIH0gZWxzZSBpZiAoaW50ZW5zaXR5ID4gVl9NRUQgLSBFUFNJT04gJiYgaW50ZW5zaXR5IDwgVl9NRUQgKyBFUFNJT04pIHsKICAgICAgICBzdHJlbmd0aCA9IDAuNTsKICAgICAgICBjb2xvciA9IFJHWDMoeHksIHN0cmVuZ3RoKTsKCiAgICB9IGVsc2UgaWYgKGludGVuc2l0eSA+IFZfSElHSCAtIEVQU0lPTiAmJiBpbnRlbnNpdHkgPCBWX0hJR0ggKyBFUFNJT04pIHsKICAgICAgICBzdHJlbmd0aCA9IDAuOTk7CiAgICAgICAgY29sb3IgPSBSR1gzKHh5LCBzdHJlbmd0aCk7CgogICAgfSBlbHNlIGlmIChpbnRlbnNpdHkgPiBWX01BWCAtIEVQU0lPTikgewogICAgICAgIHN0cmVuZ3RoID0gMTsKICAgICAgICBjb2xvciA9IFJHWDIoeHkpLnJnYjsKICAgIH0KCiAgICByZXR1cm4gZmxvYXQ0KGNvbG9yLCBvcmlnaW5hbENvbG9yLmEpOwp9) -opera-args(0.75 calc(env(-opera-accent-color-r, 255)/255) calc(env(-opera-accent-color-g, 255)/255) calc(env(-opera-accent-color-b, 255)/255)));
+  }
+</style>
+  <link rel="stylesheet" href="../index_files/tabler-icons.min.css">
+  <link href="../index_files/all.min.css" rel="stylesheet">
+  
+  <style>
+    body {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+      min-height: 100vh;
+    }
+
+    .glass-card {
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(34, 197, 94, 0.2);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    }
+
+    .qr-glow {
+      box-shadow: 0 0 50px rgba(34, 197, 94, 0.3);
+    }
+
+    .pix-pulse {
+      animation: pix-pulse 2s infinite;
+    }
+
+    @keyframes pix-pulse {
+      0%, 100% { 
+        box-shadow: 0 0 20px rgba(34, 197, 94, 0.4);
+        transform: scale(1);
+      }
+      50% { 
+        box-shadow: 0 0 40px rgba(34, 197, 94, 0.6);
+        transform: scale(1.02);
+      }
+    }
+
+    .status-animation {
+      animation: status-float 3s ease-in-out infinite;
+    }
+
+    @keyframes status-float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-5px); }
+    }
+
+    .copy-button-hover {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .copy-button-hover:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 20px 40px rgba(34, 197, 94, 0.4);
+    }
+
+    .floating-elements::before {
+      content: '';
+      position: absolute;
+      top: 20%;
+      left: 10%;
+      width: 60px;
+      height: 60px;
+      background: radial-gradient(circle, rgba(34, 197, 94, 0.1) 0%, transparent 70%);
+      border-radius: 50%;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .floating-elements::after {
+      content: '';
+      position: absolute;
+      bottom: 20%;
+      right: 10%;
+      width: 80px;
+      height: 80px;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.05) 0%, transparent 70%);
+      border-radius: 50%;
+      animation: float 8s ease-in-out infinite reverse;
+    }
+
+    @media (min-width: 640px) {
+      .floating-elements::before {
+        width: 100px;
+        height: 100px;
+      }
+      
+      .floating-elements::after {
+        width: 150px;
+        height: 150px;
+      }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(180deg); }
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #22c55e, #10b981, #059669);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .code-input {
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(30, 41, 59, 0.6) 100%);
+      border: 1px solid rgba(34, 197, 94, 0.3);
+    }
+
+    .code-input:focus {
+      border-color: rgba(34, 197, 94, 0.6);
+      box-shadow: 0 0 20px rgba(34, 197, 94, 0.2);
+    }
+
+    .loading-dots::after {
+      content: '';
+      animation: loading-dots 1.5s infinite;
+    }
+
+    @keyframes loading-dots {
+      0%, 20% { content: '.'; }
+      40% { content: '..'; }
+      60%, 100% { content: '...'; }
+    }
+  </style>
+<style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.16 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.pointer-events-none{pointer-events:none}.fixed{position:fixed}.absolute{position:absolute}.relative{position:relative}.inset-0{inset:0px}.-bottom-2{bottom:-0.5rem}.left-1\/2{left:50%}.right-2{right:0.5rem}.top-3{top:0.75rem}.top-4{top:1rem}.z-10{z-index:10}.z-\[9999\]{z-index:9999}.mx-auto{margin-left:auto;margin-right:auto}.mb-1{margin-bottom:0.25rem}.mb-2{margin-bottom:0.5rem}.mb-3{margin-bottom:0.75rem}.mb-4{margin-bottom:1rem}.mt-4{margin-top:1rem}.inline-block{display:inline-block}.flex{display:flex}.inline-flex{display:inline-flex}.h-3{height:0.75rem}.h-32{height:8rem}.min-h-screen{min-height:100vh}.w-3{width:0.75rem}.w-32{width:8rem}.w-full{width:100%}.w-px{width:1px}.max-w-sm{max-width:24rem}.-translate-x-1\/2{--tw-translate-x:-50%;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.-translate-x-full{--tw-translate-x:-100%;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.transform{transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}@keyframes ping{75%, 100%{transform:scale(2);opacity:0}}.animate-ping{animation:ping 1s cubic-bezier(0, 0, 0.2, 1) infinite}@keyframes pulse{50%{opacity:.5}}.animate-pulse{animation:pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite}.items-start{align-items:flex-start}.items-center{align-items:center}.justify-start{justify-content:flex-start}.justify-center{justify-content:center}.gap-1{gap:0.25rem}.gap-2{gap:0.5rem}.gap-3{gap:0.75rem}.space-y-1 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(0.25rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(0.25rem * var(--tw-space-y-reverse))}.space-y-3 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(0.75rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(0.75rem * var(--tw-space-y-reverse))}.space-y-5 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1.25rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1.25rem * var(--tw-space-y-reverse))}.overflow-hidden{overflow:hidden}.break-words{overflow-wrap:break-word}.break-all{word-break:break-all}.rounded-2xl{border-radius:1rem}.rounded-full{border-radius:9999px}.rounded-lg{border-radius:0.5rem}.rounded-xl{border-radius:0.75rem}.border{border-width:1px}.border-green-500\/20{border-color:rgb(34 197 94 / 0.2)}.border-slate-600\/50{border-color:rgb(71 85 105 / 0.5)}.border-slate-700\/50{border-color:rgb(51 65 85 / 0.5)}.border-yellow-500\/20{border-color:rgb(234 179 8 / 0.2)}.bg-gray-600{--tw-bg-opacity:1;background-color:rgb(75 85 99 / var(--tw-bg-opacity, 1))}.bg-slate-800\/30{background-color:rgb(30 41 59 / 0.3)}.bg-slate-800\/50{background-color:rgb(30 41 59 / 0.5)}.bg-slate-800\/60{background-color:rgb(30 41 59 / 0.6)}.bg-white{--tw-bg-opacity:1;background-color:rgb(255 255 255 / var(--tw-bg-opacity, 1))}.bg-white\/20{background-color:rgb(255 255 255 / 0.2)}.bg-yellow-400{--tw-bg-opacity:1;background-color:rgb(250 204 21 / var(--tw-bg-opacity, 1))}.bg-yellow-500\/10{background-color:rgb(234 179 8 / 0.1)}.bg-gradient-to-br{background-image:linear-gradient(to bottom right, var(--tw-gradient-stops))}.bg-gradient-to-r{background-image:linear-gradient(to right, var(--tw-gradient-stops))}.from-green-500{--tw-gradient-from:#22c55e var(--tw-gradient-from-position);--tw-gradient-to:rgb(34 197 94 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.from-transparent{--tw-gradient-from:transparent var(--tw-gradient-from-position);--tw-gradient-to:rgb(0 0 0 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.via-emerald-500{--tw-gradient-to:rgb(16 185 129 / 0)  var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), #10b981 var(--tw-gradient-via-position), var(--tw-gradient-to)}.via-white\/10{--tw-gradient-to:rgb(255 255 255 / 0)  var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), rgb(255 255 255 / 0.1) var(--tw-gradient-via-position), var(--tw-gradient-to)}.to-emerald-600{--tw-gradient-to:#059669 var(--tw-gradient-to-position)}.to-green-600{--tw-gradient-to:#16a34a var(--tw-gradient-to-position)}.to-transparent{--tw-gradient-to:transparent var(--tw-gradient-to-position)}.p-1{padding:0.25rem}.p-2{padding:0.5rem}.p-3{padding:0.75rem}.p-4{padding:1rem}.px-3{padding-left:0.75rem;padding-right:0.75rem}.px-4{padding-left:1rem;padding-right:1rem}.py-1\.5{padding-top:0.375rem;padding-bottom:0.375rem}.py-2{padding-top:0.5rem;padding-bottom:0.5rem}.py-3{padding-top:0.75rem;padding-bottom:0.75rem}.py-4{padding-top:1rem;padding-bottom:1rem}.text-left{text-align:left}.text-center{text-align:center}.font-mono{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace}.text-2xl{font-size:1.5rem;line-height:2rem}.text-base{font-size:1rem;line-height:1.5rem}.text-lg{font-size:1.125rem;line-height:1.75rem}.text-sm{font-size:0.875rem;line-height:1.25rem}.text-xl{font-size:1.25rem;line-height:1.75rem}.text-xs{font-size:0.75rem;line-height:1rem}.font-black{font-weight:900}.font-bold{font-weight:700}.font-medium{font-weight:500}.font-semibold{font-weight:600}.text-gray-300{--tw-text-opacity:1;color:rgb(209 213 219 / var(--tw-text-opacity, 1))}.text-gray-400{--tw-text-opacity:1;color:rgb(156 163 175 / var(--tw-text-opacity, 1))}.text-gray-500{--tw-text-opacity:1;color:rgb(107 114 128 / var(--tw-text-opacity, 1))}.text-green-400{--tw-text-opacity:1;color:rgb(74 222 128 / var(--tw-text-opacity, 1))}.text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.text-yellow-300{--tw-text-opacity:1;color:rgb(253 224 71 / var(--tw-text-opacity, 1))}.text-yellow-400{--tw-text-opacity:1;color:rgb(250 204 21 / var(--tw-text-opacity, 1))}.text-yellow-400\/80{color:rgb(250 204 21 / 0.8)}.opacity-0{opacity:0}.opacity-75{opacity:0.75}.shadow-2xl{--tw-shadow:0 25px 50px -12px rgb(0 0 0 / 0.25);--tw-shadow-colored:0 25px 50px -12px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-lg{--tw-shadow:0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.transition-all{transition-property:all;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-transform{transition-property:transform;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.duration-300{transition-duration:300ms}.duration-500{transition-duration:500ms}.duration-700{transition-duration:700ms}.hover\:border-green-500\/30:hover{border-color:rgb(34 197 94 / 0.3)}.hover\:bg-slate-700\/60:hover{background-color:rgb(51 65 85 / 0.6)}.hover\:from-green-600:hover{--tw-gradient-from:#16a34a var(--tw-gradient-from-position);--tw-gradient-to:rgb(22 163 74 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.hover\:via-emerald-600:hover{--tw-gradient-to:rgb(5 150 105 / 0)  var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), #059669 var(--tw-gradient-via-position), var(--tw-gradient-to)}.hover\:to-green-700:hover{--tw-gradient-to:#15803d var(--tw-gradient-to-position)}.hover\:text-white:hover{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.hover\:shadow-xl:hover{--tw-shadow:0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 20px 25px -5px var(--tw-shadow-color), 0 8px 10px -6px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.focus\:outline-none:focus{outline:2px solid transparent;outline-offset:2px}.group:hover .group-hover\:translate-x-1{--tw-translate-x:0.25rem;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.group:hover .group-hover\:translate-x-full{--tw-translate-x:100%;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}@media (min-width: 640px){.sm\:-bottom-3{bottom:-0.75rem}.sm\:right-3{right:0.75rem}.sm\:top-1\/2{top:50%}.sm\:top-8{top:2rem}.sm\:mb-2{margin-bottom:0.5rem}.sm\:mb-3{margin-bottom:0.75rem}.sm\:mb-4{margin-bottom:1rem}.sm\:mb-8{margin-bottom:2rem}.sm\:mt-6{margin-top:1.5rem}.sm\:h-4{height:1rem}.sm\:h-48{height:12rem}.sm\:w-4{width:1rem}.sm\:w-48{width:12rem}.sm\:max-w-lg{max-width:32rem}.sm\:-translate-y-1\/2{--tw-translate-y:-50%;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.sm\:transform{transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.sm\:gap-3{gap:0.75rem}.sm\:gap-4{gap:1rem}.sm\:space-y-2 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(0.5rem * var(--tw-space-y-reverse))}.sm\:space-y-4 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1rem * var(--tw-space-y-reverse))}.sm\:space-y-8 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(2rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(2rem * var(--tw-space-y-reverse))}.sm\:rounded-2xl{border-radius:1rem}.sm\:rounded-3xl{border-radius:1.5rem}.sm\:rounded-xl{border-radius:0.75rem}.sm\:p-3{padding:0.75rem}.sm\:p-4{padding:1rem}.sm\:p-6{padding:1.5rem}.sm\:p-8{padding:2rem}.sm\:px-4{padding-left:1rem;padding-right:1rem}.sm\:px-6{padding-left:1.5rem;padding-right:1.5rem}.sm\:py-2{padding-top:0.5rem;padding-bottom:0.5rem}.sm\:py-3{padding-top:0.75rem;padding-bottom:0.75rem}.sm\:py-4{padding-top:1rem;padding-bottom:1rem}.sm\:text-2xl{font-size:1.5rem;line-height:2rem}.sm\:text-4xl{font-size:2.25rem;line-height:2.5rem}.sm\:text-base{font-size:1rem;line-height:1.5rem}.sm\:text-lg{font-size:1.125rem;line-height:1.75rem}.sm\:text-sm{font-size:0.875rem;line-height:1.25rem}}</style></head>
+
+<body class="min-h-screen flex items-center justify-center px-3 py-4 sm:p-4 relative overflow-hidden">
+  
+  <!-- Floating background elements -->
+  <div class="floating-elements absolute inset-0 pointer-events-none"></div>
+
+  <!-- Main Payment Container -->
+  <div class="w-full max-w-sm sm:max-w-lg mx-auto">
+    
+    <!-- Header Section -->
+    <div class="text-center mb-4 sm:mb-8">
+      <!-- Back to Panel Button -->
+      <div class="flex justify-start mb-4">
+        <a href="/play/index.html" class="inline-flex items-center gap-2 bg-slate-800/60 hover:bg-slate-700/60 text-gray-300 hover:text-white px-3 sm:px-4 py-2 rounded-xl border border-slate-600/50 hover:border-green-500/30 transition-all duration-300 shadow-lg hover:shadow-xl">
+          <i class="fas fa-arrow-left text-sm"></i>
+          <span class="text-xs sm:text-sm font-medium">Voltar ao inicio</span>
+        </a>
+      </div>
+      
+      <div class="inline-flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+        <div class="bg-gradient-to-br from-green-500 to-emerald-600 p-2 sm:p-3 rounded-xl sm:rounded-2xl shadow-2xl">
+          <i class="fab fa-pix text-white text-lg sm:text-2xl"></i>
+        </div>
+        <div class="text-left">
+          <h1 class="text-xl sm:text-2xl font-bold gradient-text">Pagamento PIX</h1>
+          <p class="text-gray-400 text-xs sm:text-sm">Escaneie ou copie o código</p>
+        </div>
+      </div>
+      
+      <!-- Transaction ID -->
+      <div class="inline-flex items-center gap-2 bg-slate-800/50 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border border-green-500/20">
+        <i class="fas fa-hashtag text-green-400 text-xs"></i>
+        <span class="text-gray-300 text-xs sm:text-sm">ID:</span>
+        <span class="text-green-400 font-mono text-xs sm:text-sm">000000</span>
+      </div>
+    </div>
+
+    <!-- Main Payment Card -->
+    <div class="glass-card rounded-2xl sm:rounded-3xl p-4 sm:p-8 space-y-5 sm:space-y-8">
+      
+      <!-- QR Code Section -->
+      <div class="text-center">
+        <div class="relative inline-block">
+          <!-- QR Code Container -->
+          <div class="bg-white p-3 sm:p-6 rounded-xl sm:rounded-2xl shadow-2xl qr-glow pix-pulse">
+            <img id="qrImagem" alt="" class="w-32 h-32 sm:w-48 sm:h-48 mx-auto">
+
+          </div>
+          
+          <!-- PIX Logo Overlay -->
+          <div class="absolute -bottom-2 sm:-bottom-3 left-1/2 transform -translate-x-1/2">
+            <div class="bg-gradient-to-r from-green-500 to-emerald-600 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full shadow-lg">
+              <span class="text-white font-bold text-xs sm:text-sm">PIX</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Amount Display -->
+      <div class="text-center">
+        <p class="text-gray-400 text-xs sm:text-sm mb-1 sm:mb-2">Valor a pagar</p>
+        <div class="text-2xl sm:text-4xl font-black gradient-text mb-1 sm:mb-2 break-words">
+          R$ 0,00        </div>
+        <div class="flex items-center justify-center gap-2 text-green-400">
+          <i class="fas fa-shield-check text-xs sm:text-sm"></i>
+          <span class="text-xs">Pagamento seguro</span>
+        </div>
+      </div>
+
+      <!-- PIX Code Section -->
+      <div class="space-y-3 sm:space-y-4">
+        <div class="text-center">
+          <h3 class="text-white font-semibold text-sm sm:text-base mb-1 sm:mb-2 flex items-center justify-center gap-2">
+            <i class="fas fa-qrcode text-green-400 text-sm"></i>
+            Código PIX
+          </h3>
+          <p class="text-gray-400 text-xs sm:text-sm">Copie e cole no seu app de pagamento</p>
+        </div>
+        
+        <!-- Code Input -->
+        <div class="relative">
+          <input id="pixCode" readonly="" value="" class="code-input w-full text-white text-xs sm:text-sm font-mono px-3 sm:px-4 py-3 sm:py-4 rounded-lg sm:rounded-xl border focus:outline-none transition-all duration-300 break-all">
+          <div class="absolute right-2 sm:right-3 top-3 sm:top-1/2 sm:transform sm:-translate-y-1/2">
+            <i class="fas fa-code text-green-400 text-sm"></i>
+          </div>
+        </div>
+
+        <!-- Copy Button -->
+        <button onclick="copiarCodigo()" type="button" class="copy-button-hover w-full bg-gradient-to-r from-green-500 via-emerald-500 to-green-600 hover:from-green-600 hover:via-emerald-600 hover:to-green-700 text-white font-bold py-3 sm:py-4 px-4 sm:px-6 rounded-lg sm:rounded-xl shadow-2xl flex items-center justify-center gap-2 sm:gap-3 relative overflow-hidden group">
+          
+          <!-- Button background animation -->
+          <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+          
+          <!-- Button content -->
+          <i class="fas fa-copy text-base sm:text-lg relative z-10"></i>
+          <span class="relative z-10 text-sm sm:text-lg">Copiar código PIX</span>
+          <i class="fas fa-arrow-right text-base sm:text-lg relative z-10 group-hover:translate-x-1 transition-transform"></i>
+        </button>
+      </div>
+
+      <!-- Status Section -->
+      <div class="text-center">
+        <div class="inline-flex items-center gap-2 sm:gap-3 bg-yellow-500/10 px-4 sm:px-6 py-3 sm:py-4 rounded-xl sm:rounded-2xl border border-yellow-500/20 status-animation">
+          <div class="relative">
+            <div class="w-3 h-3 sm:w-4 sm:h-4 bg-yellow-400 rounded-full animate-pulse"></div>
+            <div class="absolute inset-0 w-3 h-3 sm:w-4 sm:h-4 bg-yellow-400 rounded-full animate-ping opacity-75"></div>
+          </div>
+          <div class="text-left">
+            <p class="text-yellow-300 font-semibold text-xs sm:text-sm">Aguardando pagamento</p>
+            <p class="text-yellow-400/80 text-xs loading-dots">Processando</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Help Section -->
+      <div class="bg-slate-800/30 p-3 sm:p-4 rounded-lg sm:rounded-xl border border-slate-700/50">
+        <h4 class="text-white font-semibold text-xs sm:text-sm mb-2 sm:mb-3 flex items-center gap-2">
+          <i class="fas fa-lightbulb text-yellow-400 text-xs sm:text-sm"></i>
+          Como pagar?
+        </h4>
+        <div class="space-y-1 sm:space-y-2 text-xs text-gray-400">
+          <div class="flex items-start gap-2">
+            <span class="text-green-400 font-bold">1.</span>
+            <span>Abra o app do seu banco</span>
+          </div>
+          <div class="flex items-start gap-2">
+            <span class="text-green-400 font-bold">2.</span>
+            <span>Escaneie o QR Code ou copie o código</span>
+          </div>
+          <div class="flex items-start gap-2">
+            <span class="text-green-400 font-bold">3.</span>
+            <span>Confirme o pagamento</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="text-center mt-4 sm:mt-6">
+      <div class="flex items-center justify-center gap-3 sm:gap-4 text-xs text-gray-500">
+        <div class="flex items-center gap-1">
+          <i class="fas fa-lock text-xs"></i>
+          <span>Seguro</span>
+        </div>
+        <div class="w-px h-3 sm:h-4 bg-gray-600"></div>
+        <div class="flex items-center gap-1">
+          <i class="fas fa-clock text-xs"></i>
+          <span>Instantâneo</span>
+        </div>
+        <div class="w-px h-3 sm:h-4 bg-gray-600"></div>
+        <div class="flex items-center gap-1">
+          <i class="fas fa-check-circle text-xs"></i>
+          <span>Confiável</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Success Popup -->
+  <div id="popup" class="fixed top-4 sm:top-8 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-green-500 to-emerald-600 text-white font-semibold px-4 sm:px-6 py-2 sm:py-3 rounded-xl sm:rounded-2xl shadow-2xl opacity-0 transition-all duration-500 z-[9999] flex items-center gap-2 sm:gap-3 pointer-events-none">
+    <div class="bg-white/20 p-1 rounded-full">
+      <i class="fas fa-check text-xs sm:text-sm"></i>
+    </div>
+    <span id="popupText" class="text-sm sm:text-base">PIX copiado com sucesso!</span>
+  </div>
+
+  <script>
+    function copiarCodigo() {
+      const pixCode = document.getElementById('pixCode');
+      const popup = document.getElementById('popup');
+      
+      // Copiar código
+      pixCode.select();
+      pixCode.setSelectionRange(0, 99999);
+      navigator.clipboard.writeText(pixCode.value).then(() => {
+        // Mostrar popup
+        popup.style.opacity = '1';
+        popup.style.transform = 'translate(-50%, 0) scale(1)';
+        
+        // Esconder popup após 3 segundos
+        setTimeout(() => {
+          popup.style.opacity = '0';
+          popup.style.transform = 'translate(-50%, -20px) scale(0.95)';
+        }, 3000);
+      });
+    }
+
+    // Auto-refresh page every 10 seconds to check payment status
+    setInterval(() => {
+      // Adicione aqui a lógica de verificação de pagamento se necessário
+    }, 10000);
+  </script>
+
+<script>
+function copiarCodigo() {
+  const codigo = document.getElementById("pixCode");
+  navigator.clipboard.writeText(codigo.value).then(() => {
+    const popup = document.getElementById("popup");
+    popup.classList.remove("hidden");
+
+    // Reinicia animação se clicar múltiplas vezes
+    popup.classList.remove("animate-fade-slide");
+    void popup.offsetWidth;
+    popup.classList.add("animate-fade-slide");
+
+    // Some depois de 2.5s
+    setTimeout(() => {
+      popup.classList.add("hidden");
+    }, 2500);
+  });
+}
+
+</script>
+
+<script>
+function copiarCodigo() {
+  const input = document.getElementById("pixCode");
+  input.select();
+  input.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+
+  const popup = document.getElementById("popup");
+  popup.classList.remove("opacity-0");
+  popup.classList.add("opacity-100");
+
+  setTimeout(() => {
+    popup.classList.add("opacity-0");
+    popup.classList.remove("opacity-100");
+  }, 2000);
+}
+</script>
+
+  <script>
+  // Caminho para o som
+  const clickSound = new Audio('/som/click.mp3');
+
+  // Toca o som ao clicar em qualquer botão
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('button, a, input[type="submit"]').forEach(el => {
+      el.addEventListener('click', () => {
+        clickSound.currentTime = 0; // Reinicia o som se for clicado rápido
+        clickSound.play();
+      });
+    });
+  });
+</script>
+
+
+<script>
+  let intervalVerificacao;
+  let jaProcessado = false;
+
+  function iniciarVerificacaoPix(transactionId, valorCentavos) {
+    console.log('⏳ Iniciando verificação do pagamento via servidor...');
+
+    intervalVerificacao = setInterval(async () => {
+      try {
+        const res = await fetch('/api/verificar-pix', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ transactionId })
+        });
+
+        if (!res.ok) return;
+
+        const data = await res.json();
+        if (data.status === 'paid' && !jaProcessado) {
+          jaProcessado = true;
+          clearInterval(intervalVerificacao);
+
+          const id = localStorage.getItem('id_personalizado');
+          if (!id) {
+            console.error('❌ ID não encontrado no localStorage');
+            return;
+          }
+
+          const atualizar = await fetch('/api/adicionar-saldo', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id_personalizado: id, valorCentavos })
+          });
+
+          const resData = await atualizar.json();
+          if (atualizar.ok) {
+            console.log('✅ Saldo atualizado com sucesso.');
+            mostrarPopup('<i class="fas fa-check-circle"></i> Depósito confirmado!', 'sucesso');
+            setTimeout(() => window.location.href = '/play/index.html', 3000);
+          } else {
+            console.warn('⚠️ Erro ao atualizar saldo:', resData.error);
+          }
+        }
+      } catch (erro) {
+        console.error('Erro ao verificar status do PIX:', erro);
+      }
+    }, 3000); // evita sobrecarga, 3s é mais seguro
+  }
+
+  document.addEventListener('DOMContentLoaded', async () => {
+    const params = new URLSearchParams(window.location.search);
+    const valorCentavos = parseInt(params.get('valor'), 10);
+
+    if (!valorCentavos || isNaN(valorCentavos) || valorCentavos < 3000) {
+      console.warn('❌ Valor inválido ou menor que R$ 30,00');
+      window.location.href = '/play/index.html';
+      return;
+    }
+
+    const valorReais = valorCentavos / 100;
+    console.log('🔢 Valor recebido:', valorCentavos, `(R$ ${valorReais.toFixed(2)})`);
+
+    const valorEl = document.querySelector('.text-2xl.gradient-text');
+    if (valorEl) {
+      valorEl.textContent = new Intl.NumberFormat('pt-BR', {
+        style: 'currency',
+        currency: 'BRL'
+      }).format(valorReais);
+    }
+
+    try {
+      console.log('🔄 Enviando requisição para /api/depositar...');
+      const res = await fetch('/api/depositar', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ valorCentavos })
+      });
+
+      const json = await res.json();
+      console.log('📦 Resposta da API:', json);
+
+      if (!res.ok || !json.qr_code || !json.qr_code_base64) {
+        console.error('⚠️ Erro ao gerar PIX:', json.error || 'Resposta incompleta');
+        alert('Erro ao gerar QR Code. Tente novamente.');
+        return;
+      }
+
+      const imgQR = document.getElementById('qrImagem');
+      if (imgQR) {
+        imgQR.src = json.qr_code_base64;
+        console.log('✅ QR Code base64 atualizado');
+      }
+
+      const inputCode = document.getElementById('pixCode');
+      if (inputCode) {
+        inputCode.value = json.qr_code;
+        console.log('✅ Código PIX:', json.qr_code);
+      }
+
+      const spanID = document.querySelector('.inline-flex span.text-green-400.font-mono');
+      if (spanID && json.id) {
+        spanID.textContent = json.id;
+        console.log('🆔 ID da transação:', json.id);
+      }
+
+      if (json.id) {
+        iniciarVerificacaoPix(json.id, valorCentavos);
+      }
+
+    } catch (erro) {
+      console.error('❌ Erro ao comunicar com API:', erro);
+      alert('Erro interno. Tente novamente mais tarde.');
+    }
+  });
+</script>
+
+  
+<script>
+  function mostrarPopup(mensagem, tipo = 'sucesso') {
+    const popup = document.getElementById('popup');
+    const texto = document.getElementById('popupText');
+
+    if (!popup || !texto) return;
+
+    // Define ícone e cor se for erro
+    if (tipo === 'erro') {
+      popup.classList.remove('from-green-500', 'to-emerald-600');
+      popup.classList.add('from-red-500', 'to-pink-600');
+      popup.querySelector('i').className = 'fas fa-exclamation text-xs sm:text-sm';
+    } else {
+      popup.classList.remove('from-red-500', 'to-pink-600');
+      popup.classList.add('from-green-500', 'to-emerald-600');
+      popup.querySelector('i').className = 'fas fa-check text-xs sm:text-sm';
+    }
+
+    texto.innerHTML = mensagem;
+    popup.classList.remove('opacity-0');
+    popup.classList.add('opacity-100');
+
+    setTimeout(() => {
+      popup.classList.remove('opacity-100');
+      popup.classList.add('opacity-0');
+    }, 3000);
+  }
+</script>
+
+  
+  
+ </body></html>
